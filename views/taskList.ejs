@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>taskList</h1>
+
+<form action="/task" method="post">
+    <input type="text" name="title" placeholder="Enter title" required>
+
+
+    <input type="submit" value="submit">
+</form>
+
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Title</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% data.forEach(task => { %>
+            <tr>
+                <td><%= task.title %></td>
+                <td>
+                    <a href="/task/edit/<%=task._id%>">Edit</a>
+                </td>
+                <td>
+
+                    <a href="/task/delete/<%= task._id %>">Delete</a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody>
+</table>
+
+</body>
+</html>

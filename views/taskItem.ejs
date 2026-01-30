@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Categories</h1>
+
+<form action="/category" method="post">
+    <input type="text" name="title" placeholder="Enter title" required>
+    <input type="text" name="category" placeholder="Enter category" required>
+    <input type="text" name="discription" placeholder="Enter discription" required>
+    <input type="submit" value="Add Category">
+</form>
+
+<table border="1" cellpadding="5">
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>category</th>
+            <th>discription</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% data.forEach((cat,i) => { %>
+            <tr>
+                <td><%=cat.title%></td>
+                <td><%=cat.category%></td>
+                <td><%=cat.discription%></td>
+                <td>
+                    <a href="/category/edit/<%=cat._id%>">Edit</a>
+                </td>
+                <td>
+                    <a href="/category/delete/<%=cat._id%>">Delete</a>
+                </td>
+            </tr>
+        <% }) %>
+    </tbody> 
+</table>
+
+</body>
+</html>
