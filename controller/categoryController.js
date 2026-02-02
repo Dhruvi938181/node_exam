@@ -7,7 +7,9 @@ const addCategory = async (req, res) => {
 
 const getCategory = async (req, res) => {
   const data = await categoryModel.find({});
-  res.render("taskItem",{data});
+  res.render("taskList",{data});
+
+
 };
 
 const deleteCategory = async (req, res) => {

@@ -34,11 +34,17 @@ router.post("/login", async (req, res) => {
   const match = await bcrypt.compare(password, user.password);
   if (!match) return res.send("Wrong password");
 
-  const token = jwt.sign({ id: user._id }, "SECRETKEY");
+    const token = jwt.sign({ id: user._id, role: user.role },"SECRETKEY");
 
   res.cookie("token", token);
   return res.redirect("/task");
 });
+
+router.get("/logout", (req,res)=>{
+  res.clearCookie("token");
+  res.redirect("/login");
+});
+
 
 router.get("/login", (req, res) => res.render("login"));
 router.get("/signup", (req, res) => res.render("register"));

@@ -1,31 +1,59 @@
 const taskModel = require("../model/taskModel");
+const categoryModel = require("../model/categoryModel");
 
 const addTask = async (req, res) => {
-  const data = await taskModel.create(req.body);
-  res.send(data);
+  await taskModel.create({
+    title: req.body.title,
+    categoryId: req.body.categoryId,
+    userId: req.user.id
+  });
+
+  res.redirect("/task");
 };
 
 const getTask = async (req, res) => {
-  const data = await taskModel.find({});
-  res.render("taskList",{data});
-  
+  let data;
+
+  if (req.user.role === "admin") {
+    data = await taskModel
+      .find()
+      .populate("categoryId userId");
+  } else {
+    data = await taskModel
+      .find({ userId: req.user.id })
+      .populate("categoryId userId");
+  }
+
+  const categories = await categoryModel.find();
+
+  res.render("taskItem", {
+    data,
+    categories,
+    user: req.user
+  });
 };
 
 const deleteTask = async (req, res) => {
-  const id=req.params.id
-  const data = await taskModel.findByIdAndDelete(id);
-  res.redirect("/task")
+  await taskModel.findByIdAndDelete(req.params.id);
+  res.redirect("/task");
 };
 
 const editTask = async (req, res) => {
-  const id = req.params.id;
-  const data = await taskModel.findByIdAndUpdate(id, req.body);
-  res.render("taskForm",{data})
+  const data = await taskModel.findById(req.params.id);
+  res.render("taskForm", { data });
 };
 
-const updateTask=async(req,res)=>{
-   await taskModel.findByIdAndUpdate(req.params.id, req.body);
+const updateTask = async (req, res) => {
+  await taskModel.findByIdAndUpdate(req.params.id, {
+    title: req.body.title
+  });
   res.redirect("/task");
-}
+};
 
-module.exports = { addTask,getTask,editTask,deleteTask ,updateTask};
+module.exports = {
+  addTask,
+  getTask,
+  deleteTask,
+  editTask,
+  updateTask
+};

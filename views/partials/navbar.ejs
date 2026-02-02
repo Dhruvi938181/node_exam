@@ -6,13 +6,20 @@
     <title>Document</title>
   </head>
   <body>
-    <nav style="background: black; color: white; padding: 10px">
+    <!-- <nav style="background: black; color: white; padding: 10px">
       <a href="/" style="color: white; margin-right: 15px">Home</a>
       <a href="/categories" style="color: white; margin-right: 15px">Category</a>
       <a href="/tasks" style="color: white; margin-right: 15px">Task</a>
       <a href="/login" style="color: white; margin-right: 15px">Login</a>
       <a href="/signup" style="color: white; margin-right: 15px">Register</a>
-    </nav>
-    <hr />
+    </nav> -->
+    <% if(user.role === "admin"){ %>
+      <a href="/task">All User Tasks</a>
+      <% } %>
+      
+      <a href="/task">My Tasks</a>
+      <a href="/logout">Logout</a>
+      <hr />
+
   </body>
 </html>

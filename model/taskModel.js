@@ -4,6 +4,10 @@ const TaskSchema=mongoose.Schema({
     categoryId:{
         type:mongoose.Schema.Types.ObjectId,
         ref:"category"
+    },
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "data"
     }
 })
 

@@ -1,37 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Category List</title>
 </head>
 <body>
-    <h1>taskList</h1>
 
-<form action="/task" method="post">
-    <input type="text" name="title" placeholder="Enter title" required>
+<h1>Categories</h1>
 
-
-    <input type="submit" value="submit">
+<form action="/category" method="post">
+    <input type="text" name="category" placeholder="Enter category" required>
+    <input type="text" name="discription" placeholder="Enter discription" required>
+    <input type="submit" value="Add Category">
 </form>
 
-
-<table border="1">
+<table border="1" cellpadding="5">
     <thead>
         <tr>
             <th>Title</th>
+            <th>Category</th>
+            <th>Description</th>
+            <th>Action</th>
         </tr>
     </thead>
     <tbody>
-        <% data.forEach(task => { %>
+        <% data.forEach(cat => { %>
             <tr>
-                <td><%= task.title %></td>
+                <td><%= cat.category %></td>
+                <td><%= cat.discription %></td>
                 <td>
-                    <a href="/task/edit/<%=task._id%>">Edit</a>
-                </td>
-                <td>
-
-                    <a href="/task/delete/<%= task._id %>">Delete</a>
+                    <a href="/category/edit/<%=cat._id%>">Edit</a>
+                    <a href="/category/delete/<%=cat._id%>">Delete</a>
                 </td>
             </tr>
         <% }) %>
